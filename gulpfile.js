@@ -46,6 +46,10 @@ gulp.task('jsBuild', ['jsBrowserify', 'jshint'], function(){
   browserSync.reload();
 });
 
+gulp.task('htmlBuild', function() {
+  browserSync.reload();
+});
+
 
 gulp.task('serve', function() {
   browserSync.init({
@@ -57,6 +61,7 @@ gulp.task('serve', function() {
 
   gulp.watch(['js/*.js'], ['jsBuild']);
   gulp.watch(['bower.json'], ['bowerBuild']);
+  gulp.watch(['*.html'], ['htmlBuild']);
 
 });
 
@@ -83,6 +88,10 @@ gulp.task("minifyScripts", ["jsBrowserify"], function(){
   return gulp.src("./build/js/app.js")
     .pipe(uglify())
     .pipe(gulp.dest("./build/js"));
+});
+
+gulp.task("clean", function(){
+  return del(['build', 'tmp']);
 });
 
 gulp.task('build', ['clean'], function(){
